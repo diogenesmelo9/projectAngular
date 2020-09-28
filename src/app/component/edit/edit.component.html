@@ -1,0 +1,63 @@
+<div class="container-grid">
+  <div class="grid-two-columns" *ngIf="this.vehicle" >
+    <form [formGroup]="vehicleForm" (ngSubmit)="updateVehicle()">
+      <div class="grid-gap-5">
+        <div class="text-title">
+          <mat-label >Update Vehicle</mat-label>
+        </div>
+        <div>
+          <mat-label>Plate (disabled)</mat-label>
+        </div>
+        <div>
+          <mat-form-field appearance="fill" class="input">
+            <input matInput formControlName="plate" name="plate">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-label>Model</mat-label>
+        </div>
+        <div>
+          <mat-form-field appearance="fill" class="input">
+            <input matInput formControlName="model" name="model">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-label>Manufacture</mat-label>
+        </div>
+        <div>
+          <mat-form-field appearance="fill" class="input">
+            <input matInput formControlName="manufacturer" name="manufacturer">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-label>Color</mat-label>
+        </div>
+        <div>
+          <mat-form-field appearance="fill" class="input">
+            <input matInput formControlName="color" name="color">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-label>Status</mat-label>
+        </div>
+        <div>
+          <mat-radio-group class="input" formControlName="status" name="status">
+            <mat-radio-button class="check-update" [value]="true">Active</mat-radio-button>
+            <mat-radio-button class="check-update" [value]="false">Inactive</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <button mat-raised-button class="button-update background-color-white" [disabled]="true">
+            Reset All
+          </button>
+          <button mat-raised-button class="button-update background-color-magenta color-white" type="submit" [disabled]="vehicleForm.invalid">
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+    <div>
+      <img [src]="imagePathCar" class="img-car">
+    </div>
+  </div>
+</div>

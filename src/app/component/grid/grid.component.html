@@ -1,0 +1,56 @@
+<div class="container-grid">
+    <div class="grid-gap-5 ">
+      <mat-label class="text-title">Vehicle Management</mat-label>
+      <mat-label class="paragraph color-text">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry's standa. It has survived not and more recently
+        with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      </mat-label>
+    </div>
+    <div class="display-flex">
+      <mat-form-field class="width-40">
+        <mat-label>plate search</mat-label>
+        <input matInput (input)="this.plate = $event.target.value">
+      </mat-form-field>
+      <button mat-icon-button class="margi-rigth-auto" (click)="getVehiclesPerPlate()">
+          <mat-icon svgIcon="search"></mat-icon>
+      </button>
+      <button mat-raised-button class="height-3em color-white background-color-magenta">
+        Add Vehicle +
+      </button>
+    </div>
+
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="plate">
+        <th mat-header-cell *matHeaderCellDef> Plate </th>
+        <td mat-cell *matCellDef="let element"> {{element.plate}} </td>
+      </ng-container>
+      <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef> Model </th>
+        <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+      </ng-container>
+      <ng-container matColumnDef="manufacturer">
+        <th mat-header-cell *matHeaderCellDef> Manufacturer </th>
+        <td mat-cell *matCellDef="let element"> {{element.manufacturer}} </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.status | actInact}} </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="black"  (click)="goToEdit(element.plate)">
+            <mat-icon svgIcon="edit"></mat-icon>
+          </button>
+          <button mat-icon-button class="color-magenta" (click)="openDialog(element)">
+            <mat-icon svgIcon="trash"></mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+  </div>

@@ -1,0 +1,29 @@
+<div class="container-sidenav">
+  <mat-toolbar class="background-color-green" [style.display]="!mobileQuery.matches ? 'none': 'flex'" >
+    <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+    <h1 class="text-title">Alelo Frota</h1>
+  </mat-toolbar>
+  <mat-sidenav-container class="height-100" >
+    <mat-sidenav #sidenav mode="side" [opened]="!mobileQuery.matches" >
+      <div class="sidenavmat">
+        <img [src]="imagePathLogo" class="img-sidenav-alelo">
+        <mat-label class="text-sidenav">Alelo Frota</mat-label>
+        <button mat-raised-button class="button-sidenav">
+          <mat-icon svgIcon="border"></mat-icon>
+          DashBoard
+        </button>
+        <button mat-raised-button class="button-sidenav" (click)="goToVehicle()">
+          <mat-icon svgIcon="car"></mat-icon>
+          Vehicle
+        </button>
+        <button mat-raised-button class="button-sidenav">
+          <mat-icon svgIcon="chart"></mat-icon>
+          Reports
+        </button>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content style="background: #F7F7F7 ">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
