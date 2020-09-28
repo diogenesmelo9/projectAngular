@@ -26,7 +26,17 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     this.plate = this.activatedRoute.snapshot.paramMap.get('plate');
-    this.getVehiclePerPlate(this.plate);
+    if (this.plate === 'new'){
+      this.vehicleForm = this.fb.group({
+        plate: ['', [Validators.required]],
+        model: ['', [Validators.required]],
+        manufacturer: ['', [Validators.required]],
+        color: ['', [Validators.required]],
+        status: ['', [Validators.required]],
+      });
+    } else {
+      this.getVehiclePerPlate(this.plate);
+    }
   }
 
   getVehiclePerPlate(plate: string): void {
@@ -41,22 +51,34 @@ export class EditComponent implements OnInit {
         status: [this.vehicle.status, [Validators.required]],
       });
       this.vehicleForm.controls['plate'].disable();
+    }, error => {
+      this.openSnackBar('An unexpected server error has occurred.', 'close');
     });
   }
 
   openSnackBar(message: string, action: string): void {
     this.snackBar.open(message, action, {
-      duration: 4000,
+      duration: 5000,
     });
   }
 
   updateVehicle(): void{
-    this.vehicleService.updateVehicle(this.vehicleForm.value).subscribe((data: Vehicle) => {
-      this.vehicle = data;
-      this.openSnackBar('Vehicle successfully updated.', 'close');
-    }, error => {
-      this.openSnackBar('Vehicle has not been updated.', 'close');
-    });
+    if (this.vehicleForm.value.id === undefined){
+      this.vehicleForm.value.id = '';
+      this.vehicleService.createVehicle(this.vehicleForm.value).subscribe((data: Vehicle) => {
+        this.vehicle = data;
+        this.openSnackBar('Vehicle successfully created.', 'close');
+      }, error => {
+        this.openSnackBar('Vehicle has not been created.', 'close');
+      });
+    } else {
+      this.vehicleService.updateVehicle(this.vehicleForm.value).subscribe((data: Vehicle) => {
+        this.vehicle = data;
+        this.openSnackBar('Vehicle successfully updated.', 'close');
+      }, error => {
+        this.openSnackBar('Vehicle has not been updated.', 'close');
+      });
+    }
   }
 
 }

@@ -32,9 +32,10 @@ export class GridComponent implements OnInit {
     private snackBar: MatSnackBar,
     public dialog: MatDialog
   ) {
-    matIconRegistry.addSvgIcon('edit', this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icon/edit-regular.svg"));
-    matIconRegistry.addSvgIcon('trash', this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icon/trash-alt-regular.svg"));
-    matIconRegistry.addSvgIcon('search', this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icon/search-solid.svg"));
+    matIconRegistry.addSvgIcon('edit', this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/icon/edit-regular.svg'));
+    matIconRegistry.addSvgIcon('trash', this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/icon/trash-alt-regular.svg'));
+    matIconRegistry.addSvgIcon('search', this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/icon/search-solid.svg'));
+    matIconRegistry.addSvgIcon('fiber', this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/icon/fiber_manual.svg'));
   }
 
   ngOnInit(): void {
@@ -52,12 +53,6 @@ export class GridComponent implements OnInit {
       }
     }, error => {
       this.openSnackBar('An unexpected server error has occurred.', 'close');
-    });
-  }
-
-  getVehiclePerPlate(plate: string): void {
-    this.vehicleService.getVehiclePerPlate(plate).subscribe((data: Vehicle) => {
-      this.vehicle = data;
     });
   }
 
@@ -95,7 +90,7 @@ export class GridComponent implements OnInit {
 
   openSnackBar(message: string, action: string): void {
     this.snackBar.open(message, action, {
-      duration: 4000,
+      duration: 5000,
     });
   }
 
@@ -106,13 +101,11 @@ export class GridComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       if (result !== undefined){
         this.deleteVehicle(result);
       }
     });
   }
-
 }
 
 @Component({
@@ -129,10 +122,5 @@ export class DialogOverviewComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  // onConfirmClick(vehicle: Vehicle): void {
-  //   gridComponent.deleteVehicle(vehicle);
-  //   this.dialogRef.close();
-  // }
 
 }

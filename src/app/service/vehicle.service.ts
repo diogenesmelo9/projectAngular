@@ -23,41 +23,19 @@ export class VehicleService {
       return this.httpClient.get<Vehicle[]>(this.apiUrl);
     }
 
-    public getVehiclePerPlate(plate: string): Observable<Vehicle>{
-      return this.httpClient.get<Vehicle>(this.apiUrl + '?filter=' + plate);
-    }
-
     public getVehiclesPerPlate(plate: string): Observable<Vehicle[]>{
       return this.httpClient.get<Vehicle[]>(this.apiUrl + '?filter=' + plate);
     }
 
+    createVehicle(vehicle: Vehicle): Observable<Vehicle> {
+      return this.httpClient.post<Vehicle>(this.apiUrl + '/' + vehicle.id, JSON.stringify(vehicle), this.httpOptions);
+    }
+
     updateVehicle(vehicle: Vehicle): Observable<Vehicle> {
-      return this.httpClient.put<Vehicle>(this.apiUrl + '/' + vehicle.id, JSON.stringify(vehicle), this.httpOptions)
-        .pipe(
-          retry(1),
-          catchError(this.handleError)
-        );
+      return this.httpClient.put<Vehicle>(this.apiUrl + '/' + vehicle.id, JSON.stringify(vehicle), this.httpOptions);
     }
 
     deleteVehicle(vehicle: Vehicle): Observable<Vehicle> {
-      return this.httpClient.delete<Vehicle>(this.apiUrl + '/' + vehicle.id)
-        .pipe(
-          retry(1),
-          catchError(this.handleError)
-        );
+      return this.httpClient.delete<Vehicle>(this.apiUrl + '/' + vehicle.id);
     }
-
-  // Manipulação de erros
-  handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Erro ocorreu no lado do client
-      errorMessage = error.error.message;
-    } else {
-      // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
-  }
 }

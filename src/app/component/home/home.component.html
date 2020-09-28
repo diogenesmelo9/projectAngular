@@ -1,7 +1,7 @@
 <div class="container-sidenav">
   <mat-toolbar class="background-color-green" [style.display]="!mobileQuery.matches ? 'none': 'flex'" >
     <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
-    <h1 class="text-title">Alelo Frota</h1>
+    <h1>Alelo Frota</h1>
   </mat-toolbar>
   <mat-sidenav-container class="height-100" >
     <mat-sidenav #sidenav mode="side" [opened]="!mobileQuery.matches" >
@@ -22,8 +22,8 @@
         </button>
       </div>
     </mat-sidenav>
-    <mat-sidenav-content style="background: #F7F7F7 ">
-      <router-outlet></router-outlet>
+    <mat-sidenav-content class="background-color-white">
+        <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

@@ -1,5 +1,5 @@
 <div class="container-grid">
-  <div class="grid-two-columns" *ngIf="this.vehicle" >
+  <div class="grid-two-columns" *ngIf="vehicle !== undefined || plate === 'new'" >
     <form [formGroup]="vehicleForm" (ngSubmit)="updateVehicle()">
       <div class="grid-gap-5">
         <div class="text-title">
